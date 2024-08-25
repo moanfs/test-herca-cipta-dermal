@@ -1,6 +1,6 @@
 ## Laravel + Vite
 
-link untuk test : https://derma.moanfs.com/
+Link Demo : https://herca.moanfs.com
 
 Test developer pada PT Herca Cipta Dermal, pada test ini dibuat menggunakan tech berikut:
 
@@ -58,7 +58,7 @@ php artisan serve
 1. pada folder root jalankan
 
 ```
-cd backend
+cd frontend
 npm install
 ```
 
