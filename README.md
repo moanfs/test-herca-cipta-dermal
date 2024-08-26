@@ -35,19 +35,31 @@ composer install
 mv .env.example .env
 ```
 
-3. setelah itu generate key dengan copy dibawah
+3. Masukan ini di backend pada .env
+   (daftar akun untuk menapatkan api midtrans)
+
+```
+MIDTRANS_MERCHANT_ID=your-id
+MIDTRANS_CLIENT_KEY=your-client-key
+MIDTRANS_SERVER_KEY=your-server-key
+MIDTRANS_IS_PRODUCTION=false
+MIDTRANS_IS_SANITIZED=true
+MIDTRANS_IS_3DS=true
+```
+
+4. setelah itu generate key dengan copy dibawah
 
 ```
 php artisan key:generate
 ```
 
-4. lanjut dengan migrasi database dan seeder
+5. lanjut dengan migrasi database dan seeder
 
 ```
 php artisan migrate --seed
 ```
 
-5. lanjut dengan menjalankan project dengan
+6. lanjut dengan menjalankan project dengan
 
 ```
 php artisan serve
@@ -66,6 +78,12 @@ npm install
 
 ```
 mv env.example .env
+```
+
+lalu ganti ini ini di .env forntend anda dengan serve-key anda
+
+```
+VITE_MIDTRANS_SERVER_KEY=your-server-key
 ```
 
 3. lanjut dengan menjalankan project dengan
