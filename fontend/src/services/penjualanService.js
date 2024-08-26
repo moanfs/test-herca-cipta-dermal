@@ -7,7 +7,12 @@ export const getPenjualan = async (page = 1, limit = 10)=>{
         const response = await axios.get(`${BASE_URL}/penjualan`,{
             params: { page, limit }
         });
-        return response.data;
+        // return response.data;
+        return {
+            data: response.data.data,
+            last_page: response.data.last_page,
+            total: response.data.total,
+        };
     } catch (error) {
         console.error('Error fetching data penjualan:', error);
         throw error;

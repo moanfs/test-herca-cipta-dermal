@@ -19,7 +19,6 @@ class KomisiController extends Controller
             ->select(DB::raw('marketings.name as marketing_name, SUM(grand_total) as omzet, DATE_FORMAT(date, "%Y-%m") as period'))
             // ->whereMonth('date', $month)
             // ->whereYear('date', $year)
-
             ->groupBy('marketing_id', 'marketings.name', 'period')
             ->orderBy('period', 'DESC')
             ->get();

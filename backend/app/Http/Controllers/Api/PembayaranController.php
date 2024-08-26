@@ -5,15 +5,31 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
+use Midtrans\Config;
+use Midtrans\Snap;
 
 class PembayaranController extends Controller
 {
+    public function __construct()
+    {
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = config('midtrans.is_sanitized');
+        Config::$is3ds = config('midtrans.is_3ds');
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $perPage = $request->input('limit', 10);
+        $page = $request->input('page', 1);
+
+        $penjualan = Pembayaran::with(['penjualan.marketing'])
+            ->where('status', '!=', 'paid')
+            ->paginate($perPage, ['*'], 'page', $page);
+
+        return response()->json($penjualan);
     }
 
     /**
@@ -29,15 +45,7 @@ class PembayaranController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'penjualan_id' => 'required|exists:penjualan,id',
-            'amount' => 'required|numeric',
-            'payment_date' => 'required|date',
-        ]);
-
-        $pembayaran = Pembayaran::create($validated);
-
-        return response()->json($pembayaran, 201);
+        //
     }
 
     /**
@@ -45,7 +53,26 @@ class PembayaranController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $penjualan = Pembayaran::with('penjualan')
+            ->where('id', $id)
+            ->first();
+        // dd($penjualan);
+
+        $transaction_details = [
+            'order_id' => $penjualan->penjualan->transaction_number,
+            'gross_amount' => $penjualan->amount,
+        ];
+        $transaction = [
+            'transaction_details' => $transaction_details,
+        ];
+        // dd($transaction);
+        $snapToken = Snap::getSnapToken($transaction);
+        // dd($snapToken);
+        return response()->json([
+            'message' => 'Data pembayaran.',
+            'data' => $transaction,
+            'snapToken' => $snapToken
+        ], 201);
     }
 
     /**
@@ -61,7 +88,20 @@ class PembayaranController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'status' => 'required|string',
+        ]);
+
+        $status = $validated['status'];
+
+        $payment = Pembayaran::where('id', $id)->first();
+        if ($payment) {
+            $payment->status = $status;
+            $payment->save();
+            return response()->json(['status' => 'success'], 200);
+        }
+
+        return response()->json(['status' => 'not found'], 404);
     }
 
     /**

@@ -7,17 +7,11 @@ const ShowKomisi = () =>{
     return(
         <Main>
             <Section sectionClassName="mt-24">
-                <div>
-                    <div className="my-5 flex justify-between">
+                <div className="border py-2">
+                    <div className="my-5 flex justify-between px-5">
                         <div>
                             <h1 className="font-semibold">Data Komisi</h1>
                             <span className="text-gray-500">Tabel Komisi setiap Marketing dihitung berdasarkan bulan dan tahun</span>
-                        </div>
-                        <div className="flex gap-4">
-                            <h1>Filter</h1>
-                            <div >
-                               <input type="date" className="border rounded-sm" />
-                            </div>
                         </div>
                     </div>
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 border">

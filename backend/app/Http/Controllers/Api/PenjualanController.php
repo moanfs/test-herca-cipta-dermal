@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pembayaran;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
 
@@ -16,9 +17,7 @@ class PenjualanController extends Controller
         $perPage = $request->input('limit', 10);
         $page = $request->input('page', 1);
 
-        // $penjualan = Penjualan::with('marketing')->get();
-
-        $penjualan = Penjualan::with('marketing')
+        $penjualan = Penjualan::with(['marketing', 'pembayaran'])
             ->paginate($perPage, ['*'], 'page', $page);
 
         return response()->json($penjualan);
@@ -37,6 +36,8 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
+        // Log::info('Data yang diterima:', $request->all());
+
         $validated = $request->validate([
             'marketing_id' => 'required|exists:marketings,id',
             'date' => 'required|date',
@@ -53,9 +54,17 @@ class PenjualanController extends Controller
 
         $penjualan = Penjualan::create($validated);
 
+        Pembayaran::create([
+            'penjualan_id' => $penjualan->id,
+            'amount' => $grand_total,
+            'payment_date' => now(),
+            'status' => 'nopaid',
+        ]);
+
         return response()->json([
             'message' => 'Data penjualan berhasil disimpan.',
-            'data' => $penjualan
+            'data' => $penjualan,
+            // 'snapToken' => $snapToken
         ], 201);
     }
 

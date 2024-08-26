@@ -1,12 +1,13 @@
 import { useState } from "react";
-import usePenjualan from "../../hooks/usePenjualan";
 import Section from "../../components/section";
 import Main from "../../layouts/main";
+import usePayments from "../../hooks/usePayment";
+import PaymentButton from "./PaymentButton";
 
-const ShowPenjualan = () => {
+const ShowPayment = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const limit = 10;
-    const { penjualan = [], totalPages = 1, totalItems = 0 } = usePenjualan(currentPage, limit);
+    const { payments = [], totalPages = 1, totalItems = 0 } = usePayments(currentPage, limit);
 
     const handlePageChange = (page) => {
         if (page > 0 && page <= totalPages) {
@@ -24,8 +25,8 @@ const ShowPenjualan = () => {
                 <div className="border py-2">
                     <div className="mb-5 flex justify-between items-center px-5">
                         <div>
-                            <h1 className="font-semibold">Data Penjualan</h1>
-                            <span className="text-gray-500">Tabel Penjualan setiap Marketing</span>
+                            <h1 className="font-semibold">Data Pembayaran</h1>
+                            <span className="text-gray-500">Tabel Pembayaran</span>
                         </div>
                     </div>
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 border-y">
@@ -34,23 +35,21 @@ const ShowPenjualan = () => {
                                 <td scope="col" className="px-6 py-3">Nomor Transaksi</td>
                                 <td scope="col" className="px-6 py-3">Nama Marketing</td>
                                 <td scope="col" className="px-6 py-3">Tanggal</td>
-                                <td scope="col" className="px-6 py-3">Ongkos</td>
-                                <td scope="col" className="px-6 py-3">Total Penjualan</td>
-                                <td scope="col" className="px-6 py-3">Total Keseluruhan</td>
-                                <td scope="col" className="px-6 py-3">Status Pembayaran</td>
+                                <td scope="col" className="px-6 py-3">Total</td>
+                                <td scope="col" className="px-6 py-3">Status</td>
+                                <td scope="col" className="px-6 py-3">Aksi</td>
                             </tr>
                         </thead>
                         <tbody>
-                            {penjualan.length > 0 ? (
-                                penjualan.map(item => (
+                            {payments.length > 0 ? (
+                                payments.map(item => (
                                     <tr key={item.id}>
-                                        <td className="px-6 py-4">{item.transaction_number}</td>
-                                        <td className="px-6 py-4">{item.marketing.name}</td>
-                                        <td className="px-6 py-4">{item.date}</td>
-                                        <td className="px-6 py-4">Rp. {item.cargo_fee}</td>
-                                        <td className="px-6 py-4">Rp. {item.total_balance}</td>
-                                        <td className="px-6 py-4">Rp. {item.grand_total}</td>
-                                        <td className="px-6 py-4">{item.pembayaran.status}</td>
+                                        <td className="px-6 py-4">{item.penjualan.transaction_number}</td>
+                                        <td className="px-6 py-4">{item.penjualan.marketing.name}</td>
+                                        <td className="px-6 py-4">{item.penjualan.date}</td>
+                                        <td className="px-6 py-4">Rp. {item.amount}</td>
+                                        <td className="px-6 py-4">{item.status}</td>
+                                        <td><PaymentButton paymentId={item.id} /></td>
                                     </tr>
                                 ))
                             ) : (
@@ -82,4 +81,4 @@ const ShowPenjualan = () => {
         </Main>
     )
 }
-export default ShowPenjualan;
+export default ShowPayment;

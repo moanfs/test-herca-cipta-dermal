@@ -43,43 +43,10 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name' => 'Mery',
+                'name' => 'Danang',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
         ]);
-
-        // DB::table('penjualans')->insert([
-        //     [
-        //         'transaction_number' => 'TRX001',
-        //         'marketing_Id' => 1,
-        //         'date' => '2023-05-22',
-        //         'cargo_fee' => 25000,
-        //         'total_balance' => 3000000,
-        //         'grand_total' => 3025000,
-        //         'created_at' => Carbon::now(),
-        //         'updated_at' => Carbon::now(),
-        //     ],
-        //     [
-        //         'transaction_number' => 'TRX001',
-        //         'marketing_Id' => 1,
-        //         'date' => '2023-05-22',
-        //         'cargo_fee' => 25000,
-        //         'total_balance' => 3000000,
-        //         'grand_total' => 3025000,
-        //         'created_at' => Carbon::now(),
-        //         'updated_at' => Carbon::now(),
-        //     ],
-        //     [
-        //         'transaction_number' => 'TRX001',
-        //         'marketing_Id' => 1,
-        //         'date' => '2023-05-22',
-        //         'cargo_fee' => 25000,
-        //         'total_balance' => 3000000,
-        //         'grand_total' => 3025000,
-        //         'created_at' => Carbon::now(),
-        //         'updated_at' => Carbon::now(),
-        //     ],
-        // ]);
     }
 }
