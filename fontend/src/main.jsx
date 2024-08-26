@@ -9,6 +9,7 @@ const midtransClientKey = import.meta.env.VITE_MIDTRANS_CLIENT_KEY;
 const authToken = localStorage.getItem('authToken');
 if (authToken) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+    console.log('token', authToken)
 }
 
 
