@@ -4,7 +4,7 @@ import ShowPenjualan from "../pages/penjualan/showPenjualan";
 import ShowKomisi from "../pages/komisi/showKomisi";
 import Login from "../pages/auth/login";
 import Logout from "../pages/auth/logout";
-import ProtectedRoute from "./protectedRoute";
+// import ProtectedRoute from "./protectedRoute";
 import ShowMarketing from "../pages/marketing/showMarketing";
 import ShowPayment from "../pages/payment/showPayment";
 
@@ -28,41 +28,41 @@ function Web() {
             <Route
               path="/"
               element={
-                <ProtectedRoute>
+                // <ProtectedRoute>
                     <Home />
-                </ProtectedRoute>
+                // </ProtectedRoute>
               }
             />
             <Route
               path="/penjualan"
               element={
-                <ProtectedRoute>
+                // <ProtectedRoute>
                   <ShowPenjualan />
-                </ProtectedRoute>
+                // </ProtectedRoute>
               }
             />        
             <Route
               path="/payment"
                 element={
-                  <ProtectedRoute>
+                  // <ProtectedRoute>
                     <ShowPayment />
-                  </ProtectedRoute>
+                  // </ProtectedRoute>
                 }
               />
               <Route
                 path="/komisi"
                 element={
-                  <ProtectedRoute>
+                  // <ProtectedRoute>
                     <ShowKomisi />
-                  </ProtectedRoute>
+                  // </ProtectedRoute>
                 }
               />
               <Route
                 path="/marketing"
                 element={
-                  <ProtectedRoute>
+                  // <ProtectedRoute>
                     <ShowMarketing />
-                  </ProtectedRoute>
+                  // </ProtectedRoute>
                 }
               />
           </Routes>
