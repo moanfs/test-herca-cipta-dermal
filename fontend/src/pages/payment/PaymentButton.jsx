@@ -47,6 +47,7 @@ const PaymentButton = ({ paymentId }) => {
             },
             onClose: () => {
                 console.log('Payment popup closed');
+                window.location.href = '/penjualan';
                 // window.location.reload();
             }
         });
