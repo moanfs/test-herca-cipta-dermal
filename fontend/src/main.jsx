@@ -4,12 +4,13 @@ import './index.css'
 import Web from './routes/web.jsx'
 import axios from 'axios';
 
+const midtransClientKey = import.meta.env.VITE_MIDTRANS_CLIENT_KEY;
+
 const authToken = localStorage.getItem('authToken');
 if (authToken) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
 }
 
-const midtransClientKey = import.meta.env.VITE_MIDTRANS_CLIENT_KEY;
 
 const scriptElement = document.createElement('script');
 scriptElement.src = 'https://app.sandbox.midtrans.com/snap/snap.js';

@@ -47,7 +47,7 @@ const PaymentButton = ({ paymentId }) => {
             },
             onClose: () => {
                 console.log('Payment popup closed');
-                window.location.reload();
+                window.location.href;
             }
         });
     };
